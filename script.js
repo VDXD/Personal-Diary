@@ -3,6 +3,8 @@ var contentInput = document.getElementById("contentInput");
 
 var addBtn = document.getElementById("addBtn");
 
+
+
 addBtn.onclick = () => {
   if (!dateInput.value || contentInput.value == "") {
     // const empty = document.createElement("h3");
@@ -19,5 +21,8 @@ addBtn.onclick = () => {
     let divContent = document.createElement("div");
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = contentInput.value;
+
+
   }
 };
+
