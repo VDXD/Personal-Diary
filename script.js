@@ -3,7 +3,13 @@ var contentInput = document.getElementById("contentInput");
 
 var addBtn = document.getElementById("addBtn");
 
+const saveData = (date,content)=> {
+  let existingData = JSON.parse(localStorage.getItem("dairyData")) || []
 
+  existingData.push({ date: date, content: content });
+
+  localStorage.setItem("dairyData", JSON.stringify(existingData));
+}
 
 addBtn.onclick = () => {
   if (!dateInput.value || contentInput.value == "") {
@@ -22,7 +28,21 @@ addBtn.onclick = () => {
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = contentInput.value;
 
+    saveData(dateInput.value, contentInput.value)
 
   }
 };
 
+window.onload = ()=> {
+  let savedData = JSON.parse(localStorage.getItem("dairyData")) || []
+
+  savedData .forEach(entry => {
+    let divDate = document.createElement("div");
+    document.getElementById("displayData").appendChild(divDate);
+    divDate.innerText = entry.date;
+
+    let divContent = document.createElement("div");
+    document.getElementById("displayData").appendChild(divContent);
+    divContent.innerText = entry.content;
+  });
+}
