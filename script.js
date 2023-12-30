@@ -15,12 +15,26 @@ const saveData = (date, content) => {
   localStorage.setItem("dairyData", JSON.stringify(existingData));
 };
 
+const addRemoveBtn = (entry) => {
+  let remBtn = document.createElement("button");
+  remBtn.id = "remid";
+  remBtn.innerText = "remove";
+
+  remBtn.onclick = () => {
+    let existingData = JSON.parse(localStorage.getItem("dairyData")) || [];
+    existingData = existingData.filter((e) => e.date !== entry.date);
+    localStorage.setItem("dairyData", JSON.stringify(existingData));
+
+    entry.dateElement.remove();
+    entry.contentElement.remove();
+    remBtn.remove();
+  };
+
+  return remBtn;
+};
+
 addBtn.onclick = () => {
   if (!dateInput.value || contentInput.value == "") {
-    // const empty = document.createElement("h3");
-    // document.getElementById("userError").appendChild(empty);
-    // empty.innerText = "inculde date and content to add in dairy";
-
     document.getElementById("errorData").innerHTML =
       "<h3>Share your thoughts</h3>";
   } else {
@@ -35,8 +49,24 @@ addBtn.onclick = () => {
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = contentInput.value;
 
+    let removeBtn = addRemoveBtn({
+      date: dateInput.value,
+      content: contentInput.value,
+      dateElement: divDate,
+      contentElement: divContent,
+    });
+
+    document.getElementById("displayData").appendChild(removeBtn);
+
+    displayData.insertBefore(removeBtn, displayData.firstChild);
+    displayData.insertBefore(divDate, displayData.firstChild);
+    displayData.insertBefore(divContent, displayData.firstChild);
+
     saveData(dateInput.value, contentInput.value);
   }
+
+  // dateInput.value = "";
+  // contentInput.value = "";
 };
 
 window.onload = () => {
@@ -50,28 +80,19 @@ window.onload = () => {
     let divContent = document.createElement("div");
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = entry.content;
+
+    let removeBtn = addRemoveBtn({
+      date: dateInput.value,
+      content: contentInput.value,
+      dateElement: divDate,
+      contentElement: divContent,
+    });
+
+    document.getElementById("displayData").appendChild(removeBtn);
   });
 };
 
-const deleteData = () => {
-  if (displayData.hasChildNodes()) {
-    // const empty = document.createElement("h3");
-    // document.getElementById("userError").appendChild(empty);
-    // empty.innerText = "inculde date and content to add in dairy";
-
-    localStorage.removeItem("dairyData");
-
-    const delDate = document.getElementById("date");
-    delDate.remove();
-
-    const delContent = document.getElementById("content");
-    delContent.remove();
-  } else {
-    document.getElementById("errorData").innerHTML =
-      "<h3>Share your thoughts</h3>";
-  }
-};
-
 rmovBtn.onclick = () => {
-  deleteData();
+  localStorage.removeItem("dairyData");
+  displayData.innerHTML = "";
 };
