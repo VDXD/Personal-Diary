@@ -7,6 +7,34 @@ var rmovBtn = document.getElementById("rmovBtn");
 
 var displayData = document.getElementById("displayData");
 
+var myUserName = document.getElementById("userName");
+
+var setUserName = document.getElementById("setUserName");
+
+const userName = () => {
+  let userNameInput = prompt("Please Enter Your Username");
+
+  if (!userNameInput) {
+    userName();
+  } else {
+    localStorage.setItem("username", userNameInput);
+    myUserName.textContent = `Share your Thoughts ${userNameInput}`;
+    setUserName.textContent = "Change UserName";
+  }
+};
+
+if (!localStorage.getItem("username")) {
+  userName();
+} else {
+  const storedUserName = localStorage.getItem("username");
+  myUserName.textContent = `Welcome Back ${storedUserName}, What you have today in your mind `;
+  setUserName.textContent = "Change UserName";
+}
+
+setUserName.onclick = () => {
+  userName();
+};
+
 const saveData = (date, content) => {
   let existingData = JSON.parse(localStorage.getItem("dairyData")) || [];
 
@@ -65,8 +93,8 @@ addBtn.onclick = () => {
     saveData(dateInput.value, contentInput.value);
   }
 
-  // dateInput.value = "";
-  // contentInput.value = "";
+  dateInput.value = "";
+  contentInput.value = "";
 };
 
 window.onload = () => {
