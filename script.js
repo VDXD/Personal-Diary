@@ -27,7 +27,7 @@ if (!localStorage.getItem("username")) {
   userName();
 } else {
   const storedUserName = localStorage.getItem("username");
-  myUserName.textContent = `Welcome Back ${storedUserName}, What you have today in your mind `;
+  myUserName.textContent = `Welcome Back ${storedUserName}`;
   setUserName.textContent = "Change UserName";
 }
 

@@ -5,25 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diary</title>
     <link rel="stylesheet" href="styles.css" />
+    <
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <div class="main-container">
+      <h1 id="userName" class="userName"></h1>
 
-    <h1 id="userName"></h1>
+      <div class="userInputs">
+        <div class="user-input">
+          <input type="text" id="dateInput" class="input" placeholder="Date" />
+          <input type="text" id="contentInput" class="input" placeholder="Today...." />
+        </div>
+      </div>
 
-    <button id="setUserName">Set UserName</button>
+      <button id="addBtn" onclick="saveData()">Add</button>
 
-    <div class="user-input">
-      <input type="text" id="dateInput" placeholder="Date" />
-      <input type="text" id="contentInput" placeholder="Today...." />
-    </div>
+      <button id="rmovBtn">Clear Diary</button>
 
-    <button id="addBtn" onclick="saveData()">Add</button>
+      <div class="display" id="userError">
+        <div id="errorData"></div>
+        <div id="displayData"></div>
+      </div>
 
-    <button id="rmovBtn">Clear Diary</button>
-
-    <div class="display" id="userError">
-      <div id="errorData"></div>
-      <div id="displayData"></div>
+      <button id="setUserName">Set UserName</button>
     </div>
 
     <script src="script.js"></script>

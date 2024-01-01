@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(210, 240, 255);
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.userName {
+    font-size: 2.5vw;
+    font-weight: 600;;
+}
+
+.user-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
