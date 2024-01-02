@@ -19,21 +19,32 @@
 
       <div class="userInputs">
         <div class="user-input">
+          <!-- <label for="input" class="label">Date</label> -->
           <input type="text" id="dateInput" class="input" placeholder="Date" />
-          <input type="text" id="contentInput" class="input" placeholder="Today...." />
+          <!-- <label for="input" class="label">Your Dairy</label> -->
+          <input
+            type="text"
+            id="contentInput"
+            class="input"
+            placeholder="Title"
+          />
         </div>
       </div>
 
-      <button id="addBtn" onclick="saveData()">Add</button>
-
-      <button id="rmovBtn">Clear Diary</button>
+      <div class="addclear-btn">
+        <button id="addBtn" class="button" onclick="saveData()">Add</button>
+      </div>
 
       <div class="display" id="userError">
         <div id="errorData"></div>
         <div id="displayData"></div>
       </div>
-
-      <button id="setUserName">Set UserName</button>
+      <div class="clearButton">
+        <button id="rmovBtn" class="button">Clear Diary</button>
+      </div>
+      <div class="changeName">
+        <button id="setUserName" class="button">Set UserName</button>
+      </div>
     </div>
 
     <script src="script.js"></script>

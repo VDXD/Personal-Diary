@@ -117,6 +117,10 @@ window.onload = () => {
     });
 
     document.getElementById("displayData").appendChild(removeBtn);
+
+    displayData.insertBefore(removeBtn, displayData.firstChild);
+    displayData.insertBefore(divDate, displayData.firstChild);
+    displayData.insertBefore(divContent, displayData.firstChild);
   });
 };
 
