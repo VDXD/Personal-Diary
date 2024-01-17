@@ -1,5 +1,6 @@
 var dateInput = document.getElementById("dateInput");
 var contentInput = document.getElementById("contentInput");
+var contextInput = document.getElementById("contextInput");
 
 var addBtn = document.getElementById("addBtn");
 
@@ -28,17 +29,17 @@ if (!localStorage.getItem("username")) {
 } else {
   const storedUserName = localStorage.getItem("username");
   myUserName.textContent = `Welcome Back ${storedUserName}`;
-  setUserName.textContent = "Change UserName";
+  setUserName.textContent = "Change User Name";
 }
 
 setUserName.onclick = () => {
   userName();
 };
 
-const saveData = (date, content) => {
+const saveData = (date, content, context) => {
   let existingData = JSON.parse(localStorage.getItem("dairyData")) || [];
 
-  existingData.push({ date: date, content: content });
+  existingData.push({ date: date, content: content, context: context});
 
   localStorage.setItem("dairyData", JSON.stringify(existingData));
 };
@@ -55,6 +56,7 @@ const addRemoveBtn = (entry) => {
 
     entry.dateElement.remove();
     entry.contentElement.remove();
+    entry.contextElement.remove();
     remBtn.remove();
   };
 
@@ -62,11 +64,12 @@ const addRemoveBtn = (entry) => {
 };
 
 addBtn.onclick = () => {
-  if (!dateInput.value || contentInput.value == "") {
+  if (!dateInput.value || contentInput.value == "" || contentInput.value == "") {
     document.getElementById("errorData").innerHTML =
       "<h3>Share your thoughts</h3>";
   } else {
     document.getElementById("errorData").innerHTML = "";
+
     let divDate = document.createElement("div");
     divDate.setAttribute("id", "date");
     document.getElementById("displayData").appendChild(divDate);
@@ -77,24 +80,36 @@ addBtn.onclick = () => {
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = contentInput.value;
 
+    let divContext = document.createElement("div");
+    divContext.setAttribute("id", "context");
+    document.getElementById("displayData").appendChild(divContext);
+    divContext.innerText = contextInput.value;
+
     let removeBtn = addRemoveBtn({
-      date: dateInput.value,
+      context: contextInput.value,
       content: contentInput.value,
-      dateElement: divDate,
+      date: dateInput.value,
+      contextElement: divContext,
       contentElement: divContent,
+      dateElement: divDate
     });
 
+    document.getElementById("displayData").appendChild(divContext);
+    document.getElementById("displayData").appendChild(divContent);
+    document.getElementById("displayData").appendChild(divDate);
     document.getElementById("displayData").appendChild(removeBtn);
 
     displayData.insertBefore(removeBtn, displayData.firstChild);
     displayData.insertBefore(divDate, displayData.firstChild);
     displayData.insertBefore(divContent, displayData.firstChild);
+    displayData.insertBefore(divContext, displayData.firstChild);
 
-    saveData(dateInput.value, contentInput.value);
+    saveData(dateInput.value, contentInput.value, contextInput.value);
   }
 
   dateInput.value = "";
   contentInput.value = "";
+  contextInput.value = "";
 };
 
 window.onload = () => {
@@ -109,18 +124,28 @@ window.onload = () => {
     document.getElementById("displayData").appendChild(divContent);
     divContent.innerText = entry.content;
 
+    let divContext = document.createElement("div");
+    document.getElementById("displayData").appendChild(divContext);
+    divContext.innerText = entry.context;
+
     let removeBtn = addRemoveBtn({
-      date: dateInput.value,
+      context: contextInput.value,
       content: contentInput.value,
-      dateElement: divDate,
+      date: dateInput.value,
+      contextElement: divContext,
       contentElement: divContent,
+      dateElement: divDate
     });
 
+    document.getElementById("displayData").appendChild(divContext);
+    document.getElementById("displayData").appendChild(divContent);
+    document.getElementById("displayData").appendChild(divDate);
     document.getElementById("displayData").appendChild(removeBtn);
 
     displayData.insertBefore(removeBtn, displayData.firstChild);
     displayData.insertBefore(divDate, displayData.firstChild);
     displayData.insertBefore(divContent, displayData.firstChild);
+    displayData.insertBefore(divContext, displayData.firstChild);
   });
 };
 
